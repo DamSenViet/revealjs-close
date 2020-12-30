@@ -1,10 +1,12 @@
 "use strict";
+const TerserPlugin = require('terser-webpack-plugin');
 const {
   pathToBuild,
   pathToBuildCJS,
   pathToBuildUMD,
   pathToNodeModules,
   pathToSrcIndex,
+  pathToTestsManual,
 } = require('../etc/paths');
 const {
   babelDevConfig,
@@ -34,6 +36,14 @@ const outputUMD = {
   libraryExport: "default",
   libraryTarget: "umd",
   path: pathToBuildUMD,
+  umdNamedDefine: true,
+  globalObject: `(typeof self !== 'undefined' ? self : this)`,
+};
+
+// for system testing
+const outputUMDTest = {
+  ...outputUMD,
+  path: pathToTestsManual,
 };
 
 const babelLoaderDev = {
@@ -81,6 +91,27 @@ const resolve = {
   extensions: [".ts", ".js"],
 };
 
+
+const optimizationProd = {
+  minimize: true,
+  minimizer: [
+    new TerserPlugin({
+      test: /\.js(\?.*)?$/i,
+      parallel: true,
+      terserOptions: {
+        mangle: true,
+        ie8: false,
+      },
+      extractComments: true,
+    }),
+  ]
+};
+
+const externals = {
+  "reveal.js": "Reveal",
+};
+
+
 const webpackDevConfigCJS = {
   target: "node",
   mode: "development",
@@ -91,8 +122,8 @@ const webpackDevConfigCJS = {
     rules: rulesDev
   },
   resolve,
+  performance: false,
 };
-
 
 const webpackProdConfigCJS = {
   target: "node",
@@ -104,20 +135,32 @@ const webpackProdConfigCJS = {
     rules: rulesProd
   },
   resolve,
+  performance: false,
 };
-
 
 const webpackDevConfigUMD = {
   ...webpackDevConfigCJS,
   target: "web",
   output: outputUMD,
+  externals,
 };
-
 
 const webpackProdConfigUMD = {
   ...webpackProdConfigCJS,
   target: "web",
   output: outputUMD,
+  optimization: optimizationProd,
+  externals,
+};
+
+const webpackDevConfigUMDTest = {
+  ...webpackDevConfigUMD,
+  output: outputUMDTest,  
+};
+
+const webpackProdConfigUMDTest = {
+  ...webpackProdConfigUMD,
+  output: outputUMDTest,
 };
 
 
@@ -126,4 +169,6 @@ module.exports = {
   webpackProdConfigCJS,
   webpackDevConfigUMD,
   webpackProdConfigUMD,
+  webpackDevConfigUMDTest,
+  webpackProdConfigUMDTest,
 };
