@@ -1,0 +1,19 @@
+name: "deploy-docs"
+on:
+  push:
+    branches:
+      - master
+jobs:
+  deploy-demo:
+    runs-on: ubuntu-18.04
+    container:
+      image: node:10.14.2-alpine
+      env:
+        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+    steps:
+        - name: checkout
+          uses: actions/checkout@v2
+          with:
+            ref: master
+        - name: deploy-demo
+          run: ./.github/workflows/deploy-demo.sh
