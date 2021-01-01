@@ -15,18 +15,49 @@
   
   <!-- custom styles -->
   <style>
+    .reveal {
+      position: relative;
+      top: 0;
+      left: 0;
+      height: 700px;
+    }
+    
+    .reveal .close {
+      display: block;
+      position: absolute;
+      padding: 10px;
+      top: 12px;
+      right: 12px;
+      z-index: 999;
+      border: unset;
+
+      background-color: #3f85e1;
+      color: red;
+      font-weight: bold;
+      color: white;
+      outline: unset;
+      border-radius: 3px;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
   <div class="reveal">
+    <button class="close">
+      X
+    </button>
     <div class="slides">
-      <section>Slide 1</section>
-      <section>Slide 2</section>
+      <section>Horizontal Slide</section>
+      <section>
+        <section>Vertical Slide 1</section>
+        <section>Vertical Slide 2</section>
+      </section>
     </div>
   </div>
   <script>
     const deck = new Reveal(document.querySelector(".reveal"), {
       embedded: true,
+      plugins: [RevealClose],
     });
     deck.initialize();
   </script>
