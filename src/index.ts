@@ -1,14 +1,24 @@
+import styles from "./styles";
+
 export default {
   id: 'close',
   init: (deck: any) => {
     const config = deck.getConfig();
 
+    // insert styles
+    const stylesElement = document.createElement("style");
+    document.head.prepend(stylesElement);
+    stylesElement.innerHTML = styles;
+
     // find the close button
-    let closeButtonElement: HTMLButtonElement;
+    const closeButtonElement: HTMLButtonElement = document.createElement("button");
+    closeButtonElement.classList.add("close");
+    console.log(closeButtonElement);
+
     const revealElement: HTMLDivElement = deck.getRevealElement();
+    revealElement.appendChild(closeButtonElement);
 
     if (revealElement.querySelector("button.close") == null) return;
-    closeButtonElement = <HTMLButtonElement>revealElement.querySelector("button.close");
     closeButtonElement.style.visibility = "hidden";
 
     const viewportElement: HTMLDivElement = config.embedded ? deck.getViewportElement() : document.documentElement;
@@ -16,14 +26,10 @@ export default {
     let isShowingCloseButton = document.fullscreenElement === viewportElement;
     const setIsShowingCloseButton = (value: boolean) => {
       isShowingCloseButton = value;
-      if (value) {
+      if (value)
         closeButtonElement.style.visibility = "visible";
-        viewportElement.requestFullscreen();
-      }
-      else {
+      else
         closeButtonElement.style.visibility = "hidden";
-        document.exitFullscreen();
-      }
     };
 
     viewportElement.addEventListener("fullscreenchange", () => {
