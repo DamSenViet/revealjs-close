@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <!-- peer dependencies -->
+  <script src="https://unpkg.com/reveal.js@4.1.0/dist/reveal.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@4.1.0/dist/reset.css" />
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@4.1.0/dist/reveal.css" />
+  <link rel="stylesheet" href="https://unpkg.com/reveal.js@4.1.0/dist/theme/black.css" />
+  <link rel="stylesheet" href="./index.css" />
+  
+  <!-- build -->
+  <script src="./index.js"></script>
+  
+  <!-- custom styles -->
+  <style>
+    .reveal {
+      height: 700px;
+    }
+  </style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+      <section>Horizontal Slide</section>
+      <section>
+        <section>Vertical Slide 1</section>
+        <section>Vertical Slide 2</section>
+      </section>
+    </div>
+  </div>
+  <script>
+    const deck = new Reveal(document.querySelector(".reveal"), {
+      embedded: true,
+      plugins: [RevealClose],
+    });
+    deck.initialize();
+  </script>
+</body>
+</html>
