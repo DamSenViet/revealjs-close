@@ -76,14 +76,26 @@ const jsRuleProd = {
   ],
 };
 
+const cssRule = {
+  test: /\.css$/i,
+  use: {
+    loader: 'file-loader',
+    options: {
+      name: 'index.css',
+      outputPath: '',
+    },
+  },
+};
 
 const rulesDev = [
   jsRuleDev,
+  cssRule,
 ];
 
 
 const rulesProd = [
   jsRuleProd,
+  cssRule,
 ];
 
 

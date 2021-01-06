@@ -1,14 +1,9 @@
-import styles from "./styles";
+import "./styles.css";
 
 export default {
   id: 'close',
   init: (deck: any) => {
     const config = deck.getConfig();
-
-    // insert styles
-    const stylesElement = document.createElement("style");
-    document.head.prepend(stylesElement);
-    stylesElement.innerHTML = styles;
 
     // find the close button
     const closeButtonElement: HTMLButtonElement = document.createElement("button");

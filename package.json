@@ -2,7 +2,9 @@
   "name": "revealjs-close",
   "version": "0.0.0",
   "description": "A plugin adding close buttons for revealjs.",
-  "files": ["build/*"],
+  "files": [
+    "build/*"
+  ],
   "module": "build/esm/index.js",
   "types": "build/esm/index.d.ts",
   "browser": "build/umd/index.js",
@@ -44,5 +46,8 @@
     "webpack-bundle-analyzer": "^4.3.0",
     "webpack-format-messages": "^2.0.6",
     "yargs": "^16.2.0"
+  },
+  "dependencies": {
+    "file-loader": "^6.2.0"
   }
 }

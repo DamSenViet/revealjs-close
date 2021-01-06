@@ -13,3 +13,4 @@
 **/.vscode
 /tests/manual/index.js
 /tests/manual/index.js.map
+/tests/manual/index.css
